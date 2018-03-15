@@ -36,8 +36,11 @@ final class ConfigurationExtension extends Trejjam\BaseExtension\DI\BaseExtensio
 
 		parent::loadConfiguration($validateConfig);
 
-		Validators::assertField($this->config['migration'], 'dir', 'string|Nette\PhpGenerator\PhpLiteral');
-		Validators::assertField($this->config['migration'], 'phpParams', 'array');
+		Validators::assertField($this->config, 'useMigration', 'bool');
+		if ($this->config['useMigration']) {
+			Validators::assertField($this->config['migration'], 'dir', 'string|Nette\PhpGenerator\PhpLiteral');
+			Validators::assertField($this->config['migration'], 'phpParams', 'array');
+		}
 
 		$containerBuilder = $this->getContainerBuilder();
 		$applicationParameters = $containerBuilder->parameters;
