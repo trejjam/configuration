@@ -1,0 +1,36 @@
+{
+	"name": "trejjam/configuration",
+	"description": "Nette base configuration object",
+	"keywords": [
+		"nette",
+		"configuration"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Jan Trejbal"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/trejjam/configuration/issues"
+	},
+	"require": {
+		"php": ">=7.1",
+
+		"nette/di": "~2.4 || ~3.0",
+		"trejjam/base-extension": "~0.7"
+	},
+	"suggest": {
+
+	},
+	"autoload": {
+		"psr-4": {
+			"Trejjam\\Configuration\\": "src/"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "v0.1.x-dev"
+		}
+	}
+}
