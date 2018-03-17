@@ -59,10 +59,20 @@ final class Migration implements Migrations\IConfiguration
 	) {
 		$this->dir = $dir;
 		$this->driver = $driver;
-		$this->withDummyData = $withDummyData;
+		$this->setWithDummyData($withDummyData);
 		$this->phpParams = $phpParams;
-		$this->withTestData = $withTestData;
+		$this->setWithTestData($withTestData);
 		$this->disablePhpExtension = $disablePhpExtension;
+	}
+
+	public function setWithDummyData(bool $withDummyData)
+	{
+		$this->withDummyData = $withDummyData;
+	}
+
+	public function setWithTestData(bool $withTestData)
+	{
+		$this->withTestData = $withTestData;
 	}
 
 	/**
