@@ -53,28 +53,15 @@ final class Migration implements Migrations\IConfiguration
 		string $dir,
 		Migrations\IDriver $driver,
 		bool $withDummyData = FALSE,
-		array $phpParams = []
+		array $phpParams = [],
+		bool $disablePhpExtension = FALSE,
+		bool $withTestData = FALSE
 	) {
 		$this->dir = $dir;
 		$this->driver = $driver;
 		$this->withDummyData = $withDummyData;
 		$this->phpParams = $phpParams;
-		$this->withTestData = FALSE;
-		$this->disablePhpExtension = FALSE;
-	}
-
-	public function setWithDummyData(bool $withDummyData)
-	{
-		$this->withDummyData = $withDummyData;
-	}
-
-	public function setWithTestData(bool $withTestData)
-	{
 		$this->withTestData = $withTestData;
-	}
-
-	public function disablePhpExtension(bool $disablePhpExtension)
-	{
 		$this->disablePhpExtension = $disablePhpExtension;
 	}
 

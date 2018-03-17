@@ -17,9 +17,11 @@ final class ConfigurationExtension extends Trejjam\BaseExtension\DI\BaseExtensio
 		],
 		'useMigration' => FALSE,
 		'migration'    => [
-			'dir'           => NULL,
-			'withDummyData' => FALSE,
-			'phpParams'     => [],
+			'dir'                 => NULL,
+			'withDummyData'       => FALSE,
+			'phpParams'           => [],
+			'disablePhpExtension' => FALSE,
+			'withTestData'        => FALSE,
 		],
 	];
 
@@ -78,9 +80,11 @@ final class ConfigurationExtension extends Trejjam\BaseExtension\DI\BaseExtensio
 			$migration->setFactory(
 				Trejjam\Configuration\Migration::class,
 				[
-					'dir'           => $this->config['migration']['dir'],
-					'withDummyData' => $this->config['migration']['withDummyData'],
-					'phpParams'     => $this->config['migration']['phpParams'],
+					'dir'                 => $this->config['migration']['dir'],
+					'withDummyData'       => $this->config['migration']['withDummyData'],
+					'phpParams'           => $this->config['migration']['phpParams'],
+					'disablePhpExtension' => $this->config['migration']['disablePhpExtension'],
+					'withTestData'        => $this->config['migration']['withTestData'],
 				]
 			);
 		}
