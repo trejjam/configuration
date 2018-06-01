@@ -18,15 +18,26 @@ final class Environment
 	 * @var string
 	 */
 	private $siteMode;
+	/**
+	 * @var bool
+	 */
+	private $isCli;
 
 	public function __construct(
-		string $siteMode
+		string $siteMode,
+		bool $isCli
 	) {
 		$this->siteMode = $siteMode;
+		$this->isCli = $isCli;
 	}
 
 	public function getSiteMode() : string
 	{
 		return $this->siteMode;
+	}
+
+	public function isCli() : bool
+	{
+		return $this->isCli;
 	}
 }

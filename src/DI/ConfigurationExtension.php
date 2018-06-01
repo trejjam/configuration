@@ -11,6 +11,7 @@ final class ConfigurationExtension extends Trejjam\BaseExtension\DI\BaseExtensio
 {
 	protected $default = [
 		'environment'  => Trejjam\Configuration\Environment::SITE_MODE_PUBLIC,
+		'isCli'        => PHP_SAPI === 'cli',
 		'fileVersion'  => [
 			'version'   => Trejjam\Configuration\FileVersion::UNSPECIFIED_VERSION,
 			'buildTime' => NULL,
@@ -38,6 +39,7 @@ final class ConfigurationExtension extends Trejjam\BaseExtension\DI\BaseExtensio
 
 		parent::loadConfiguration($validateConfig);
 
+		Validators::assertField($this->config, 'isCli', 'bool');
 		Validators::assertField($this->config, 'useMigration', 'bool');
 		if ($this->config['useMigration']) {
 			Validators::assertField($this->config['migration'], 'dir', 'string|Nette\PhpGenerator\PhpLiteral');
@@ -52,6 +54,7 @@ final class ConfigurationExtension extends Trejjam\BaseExtension\DI\BaseExtensio
 		$types['environment']->setArguments(
 			[
 				'siteMode' => $this->config['environment'],
+				'isCli'    => $this->config['isCli'],
 			]
 		);
 		$types['fileVersion']->setArguments(
