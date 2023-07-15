@@ -7,62 +7,30 @@ use Nextras\Migrations;
 
 final class Migration implements Migrations\IConfiguration
 {
-	/**
-	 * @var string
-	 */
-	protected $dir;
-	/**
-	 * @var Migrations\IDriver
-	 */
-	protected $driver;
-	/**
-	 * @var bool
-	 */
-	protected $withDummyData;
-	/**
-	 * @var array
-	 */
-	protected $phpParams;
-	/**
-	 * @var bool
-	 */
-	protected $withTestData;
-	/**
-	 * @var bool
-	 */
-	protected $disablePhpExtension;
+	protected bool $withDummyData;
+	protected bool $withTestData;
 
 	/**
 	 * @var Migrations\Entities\Group[]
 	 */
-	protected $groups;
+	protected array|null $groups;
 	/**
 	 * @var Migrations\IExtensionHandler[]
 	 */
-	protected $handlers;
-	/**
-	 * @var Migrations\IDiffGenerator|NULL
-	 */
-	protected $structureDiffGenerator;
-	/**
-	 * @var Migrations\IDiffGenerator|NULL
-	 */
-	protected $dummyDataDiffGenerator;
+	protected array|null $handlers;
+	protected Migrations\IDiffGenerator|null $structureDiffGenerator;
+	protected Migrations\IDiffGenerator|null $dummyDataDiffGenerator;
 
 	public function __construct(
-		string $dir,
-		Migrations\IDriver $driver,
-		bool $withDummyData = FALSE,
-		array $phpParams = [],
-		bool $disablePhpExtension = FALSE,
-		bool $withTestData = FALSE
+		private readonly string $dir,
+        private readonly Migrations\IDriver $driver,
+        bool $withDummyData = false,
+        private readonly array $phpParams = [],
+        private readonly bool $disablePhpExtension = false,
+        bool $withTestData = false
 	) {
-		$this->dir = $dir;
-		$this->driver = $driver;
 		$this->setWithDummyData($withDummyData);
-		$this->phpParams = $phpParams;
 		$this->setWithTestData($withTestData);
-		$this->disablePhpExtension = $disablePhpExtension;
 	}
 
 	public function setWithDummyData(bool $withDummyData)
@@ -130,12 +98,12 @@ final class Migration implements Migrations\IConfiguration
 		return $this->handlers;
 	}
 
-	public function setStructureDiffGenerator(Migrations\IDiffGenerator $generator = NULL)
+	public function setStructureDiffGenerator(Migrations\IDiffGenerator|null $generator = null)
 	{
 		$this->structureDiffGenerator = $generator;
 	}
 
-	public function setDummyDataDiffGenerator(Migrations\IDiffGenerator $generator = NULL)
+	public function setDummyDataDiffGenerator(Migrations\IDiffGenerator|null $generator = null)
 	{
 		$this->dummyDataDiffGenerator = $generator;
 	}
