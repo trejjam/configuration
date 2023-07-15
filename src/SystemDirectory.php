@@ -5,32 +5,14 @@ namespace Trejjam\Configuration;
 
 final class SystemDirectory
 {
-	/**
-	 * @var string
-	 */
-	private $tempDir;
-	/**
-	 * @var string
-	 */
-	private $appDir;
-	/**
-	 * @var string
-	 */
-	private $rootDir;
-	/**
-	 * @var string
-	 */
-	private $wwwDir;
+	private string $rootDir;
 
 	public function __construct(
-		string $tempDir,
-		string $appDir,
-		string $wwwDir
+		private readonly string $tempDir,
+		private readonly string $appDir,
+		private readonly string $wwwDir
 	) {
-		$this->tempDir = $tempDir;
-		$this->appDir = $appDir;
 		$this->rootDir = dirname($appDir);
-		$this->wwwDir = $wwwDir;
 	}
 
 	public function getTempDir() : string
