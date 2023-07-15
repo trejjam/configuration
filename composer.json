@@ -15,10 +15,9 @@
 		"issues": "https://github.com/trejjam/configuration/issues"
 	},
 	"require": {
-		"php": ">=7.1",
+		"php": "^8.1 | ^8.2",
 
-		"nette/di": "~2.4 || ~3.0",
-		"trejjam/base-extension": "~0.7"
+		"nette/di": "^3.1"
 	},
 	"suggest": {
 
@@ -30,7 +29,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "v0.1.x-dev"
+			"dev-master": "v0.2.x-dev"
 		}
 	}
 }
