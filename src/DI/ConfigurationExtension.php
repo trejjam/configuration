@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Trejjam\Configuration\DI;
 
 use DateTimeImmutable;
+use Nette\DI;
 use Nette\DI\CompilerExtension;
 use Nette\PhpGenerator\Literal;
 use Nette\Schema\Expect;
@@ -16,11 +17,17 @@ final class ConfigurationExtension extends CompilerExtension
     public function getConfigSchema(): Schema
     {
         return Expect::structure([
-            'environment' => Expect::string()->default(Trejjam\Configuration\Environment::SITE_MODE_PUBLIC),
+            'environment' => Expect::anyOf(
+                Expect::string(),
+                Expect::type(DI\Definitions\Statement::class)
+            )->default(Trejjam\Configuration\Environment::SITE_MODE_PUBLIC),
             'isCli' => Expect::bool()->default(PHP_SAPI === 'cli'),
             'fileVersion' => Expect::structure([
                 'version' => Expect::string()->default(Trejjam\Configuration\FileVersion::UNSPECIFIED_VERSION),
-                'buildTime' => Expect::string()->default(new DateTimeImmutable()),
+                'buildTime' => Expect::anyOf(
+                    Expect::type(DateTimeImmutable::class),
+                    Expect::type(DI\Definitions\Statement::class)
+                )->default(new DateTimeImmutable()),
             ]),
             'useMigration' => Expect::bool()->default(interface_exists(Migrations\IConfiguration::class)),
             'migration' => Expect::structure([
