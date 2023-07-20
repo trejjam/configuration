@@ -24,7 +24,10 @@ final class ConfigurationExtension extends CompilerExtension
             'isCli' => Expect::bool()->default(PHP_SAPI === 'cli'),
             'fileVersion' => Expect::structure([
                 'version' => Expect::string()->default(Trejjam\Configuration\FileVersion::UNSPECIFIED_VERSION),
-                'buildTime' => Expect::string()->default(new DateTimeImmutable()),
+                'buildTime' => Expect::anyOf(
+                    Expect::type(DateTimeImmutable::class),
+                    Expect::type(DI\Definitions\Statement::class)
+                )->default(new DateTimeImmutable()),
             ]),
             'useMigration' => Expect::bool()->default(interface_exists(Migrations\IConfiguration::class)),
             'migration' => Expect::structure([
