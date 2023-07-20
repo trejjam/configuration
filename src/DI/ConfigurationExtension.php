@@ -49,11 +49,11 @@ final class ConfigurationExtension extends CompilerExtension
             $migration->setFactory(
                 Trejjam\Configuration\Migration::class,
                 [
-                    'dir' => $migrationConfiguration['dir'],
-                    'withDummyData' => $migrationConfiguration['withDummyData'],
-                    'phpParams' => $migrationConfiguration['phpParams'],
-                    'disablePhpExtension' => $migrationConfiguration['disablePhpExtension'],
-                    'withTestData' => $migrationConfiguration['withTestData'],
+                    'dir' => $migrationConfiguration->dir,
+                    'withDummyData' => $migrationConfiguration->withDummyData,
+                    'phpParams' => $migrationConfiguration->phpParams,
+                    'disablePhpExtension' => $migrationConfiguration->disablePhpExtension,
+                    'withTestData' => $migrationConfiguration->withTestData,
                 ]
             );
         }
@@ -72,8 +72,8 @@ final class ConfigurationExtension extends CompilerExtension
             ->setType(Trejjam\Configuration\FileVersion::class)
             ->setArguments(
                 [
-                    'version' => $fileVersion['version'],
-                    'buildTime' => $fileVersion['buildTime'],
+                    'version' => $fileVersion->version,
+                    'buildTime' => $fileVersion->buildTime,
                 ]
             );
 
