@@ -11,23 +11,27 @@ use Nette\Schema\Expect;
 use Nette\Schema\Schema;
 use Trejjam;
 use Nextras\Migrations;
+use Trejjam\Configuration\SiteMode;
 
 final class ConfigurationExtension extends CompilerExtension
 {
     public function getConfigSchema(): Schema
     {
+        $siteModes = array_column(SiteMode::cases(), 'name');
+        $knownSiteModes = join(', ', $siteModes);
+
         return Expect::structure([
-            'environment' => Expect::anyOf(
-                Expect::string(),
-                Expect::type(DI\Definitions\Statement::class)
-            )->default(Trejjam\Configuration\Environment::SITE_MODE_PUBLIC),
+            'environment' => Expect::string()
+                                   ->assert(fn (string $x) => in_array($x, $siteModes, true), "Expect one of the following values: $knownSiteModes")
+                                   ->transform(fn ($x) => SiteMode::from($x))
+                                   ->default(SiteMode::Public->name),
             'isCli' => Expect::bool()->default(PHP_SAPI === 'cli'),
             'fileVersion' => Expect::structure([
-                'version' => Expect::string()->default(Trejjam\Configuration\FileVersion::UNSPECIFIED_VERSION),
+                'version' => Expect::string()->dynamic()->default(Trejjam\Configuration\FileVersion::UNSPECIFIED_VERSION),
                 'buildTime' => Expect::anyOf(
                     Expect::type(DateTimeImmutable::class),
                     Expect::type(DI\Definitions\Statement::class)
-                )->default(new DateTimeImmutable()),
+                )->dynamic()->default(new DateTimeImmutable()),
             ]),
             'useMigration' => Expect::bool()->default(interface_exists(Migrations\IConfiguration::class)),
             'migration' => Expect::structure([
