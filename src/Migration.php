@@ -13,11 +13,11 @@ final class Migration implements Migrations\IConfiguration
 	/**
 	 * @var Migrations\Entities\Group[]
 	 */
-	protected array|null $groups;
+	protected array|null $groups = null;
 	/**
 	 * @var Migrations\IExtensionHandler[]
 	 */
-	protected array|null $handlers;
+	protected array|null $handlers = null;
 	protected Migrations\IDiffGenerator|null $structureDiffGenerator;
 	protected Migrations\IDiffGenerator|null $dummyDataDiffGenerator;
 
